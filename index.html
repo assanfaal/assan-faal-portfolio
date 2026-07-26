@@ -6,7 +6,7 @@
     <title>Assan Faal — Full Stack Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="StillAssan1.png">
+    <link rel="icon" type="image/png" href="images/StillAssan1.png">
     <style>
         /* ===== ROOT ===== */
         :root {
@@ -434,11 +434,12 @@
             .carousel-slide {
                 min-height: 0;
             }
-            .project-card:first-child .project-media {
-                order: 2;
-            }
-            .project-card:first-child .project-info {
+            /* Both projects: info first, media second on mobile */
+            .project-card .project-info {
                 order: 1;
+            }
+            .project-card .project-media {
+                order: 2;
             }
         }
 
@@ -478,7 +479,7 @@
         .carousel-slide video {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             display: block;
         }
         .carousel-slide video {
@@ -524,6 +525,10 @@
             letter-spacing: 0.05em;
             pointer-events: none;
             z-index: 2;
+            max-width: 70%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         /* video controls overlay */
         .carousel-slide .video-controls-overlay {
@@ -908,7 +913,7 @@
                 </div>
                 <div>
                     <div class="mark-panel">
-                        <img class="hero-photo" src="StillAssan1.png" alt="Assan Faal">
+                        <img class="hero-photo" src="images/StillAssan1.png" alt="Assan Faal">
                         <div class="mark-corner"></div>
                         <div class="mark-tag mono">Assan Faal, Freelancer &amp; Undergraduate Student</div>
                     </div>
@@ -1106,10 +1111,12 @@
                     img.loading = 'lazy';
                     slide.appendChild(img);
 
-                    const label = document.createElement('span');
-                    label.className = 'slide-label';
-                    label.textContent = item.label || 'img' + (idx + 1);
-                    slide.appendChild(label);
+                    if (item.label) {
+                        const label = document.createElement('span');
+                        label.className = 'slide-label';
+                        label.textContent = item.label;
+                        slide.appendChild(label);
+                    }
                 } else if (item.type === 'video') {
                     const video = document.createElement('video');
                     video.src = item.src;
@@ -1120,10 +1127,12 @@
                     video.setAttribute('playsinline', '');
                     slide.appendChild(video);
 
-                    const label = document.createElement('span');
-                    label.className = 'slide-label';
-                    label.textContent = item.label || 'vid' + (idx + 1);
-                    slide.appendChild(label);
+                    if (item.label) {
+                        const label = document.createElement('span');
+                        label.className = 'slide-label';
+                        label.textContent = item.label;
+                        slide.appendChild(label);
+                    }
 
                     // play overlay
                     const overlay = document.createElement('div');
@@ -1374,36 +1383,26 @@
 
         // ----- SHA LACH (Dental Clinic) -----
         const shalachItems = [
-            // 5 images
             { type: 'image', src: 'images/img1.png', label: 'Homepage' },
             { type: 'image', src: 'images/img2.png', label: 'Login Page' },
             { type: 'image', src: 'images/img3.png', label: 'Appointments' },
-            { type: 'image', src: 'images/img4.png', label: 'Appointments' },
-            { type: 'image', src: 'images/img5.png', label: 'Patients' },
-            // 3 videos
-            { type: 'video', src: 'images/vid1.mp4',
-                poster: 'images/vid1.mp4', label: 'Homepage' },
-            { type: 'video', src: 'images/vid2.mp4',
-                poster: 'images/vid2.mp4', label: 'Dashboard' },
-            { type: 'video', src: 'images/vid3.mp4',
-                poster: 'images/vid3.mp4', label: 'WhatsApp Integration' },
+            { type: 'image', src: 'images/img4.png', label: 'Patients' },
+            { type: 'image', src: 'images/img5.png', label: 'Dashboard' },
+            { type: 'video', src: 'images/vid1.mp4', poster: 'images/vid1.mp4', label: 'Homepage' },
+            { type: 'video', src: 'images/vid2.mp4', poster: 'images/vid2.mp4', label: 'Dashboard' },
+            { type: 'video', src: 'images/vid3.mp4', poster: 'images/vid3.mp4', label: 'WhatsApp Integration' },
         ];
 
         // ----- WORDPRESS (Client Sites) -----
         const wordpressItems = [
-            // 5 images with "A" suffix
-            { type: 'image', src: 'images/imgA1.png', label: 'NGO Website, client from Nigeria' },
-            { type: 'image', src: 'images/imgA2.png', label: '' },
-            { type: 'image', src: 'images/imgA3.png', label: '' },
-            { type: 'image', src: 'images/imgA4.png', label: '' },
+            { type: 'image', src: 'images/imgA.png', label: 'NGO Website, Nigeria' },
+            { type: 'image', src: 'images/imgA2.png', label: 'Client Site' },
+            { type: 'image', src: 'images/imgA3.png', label: 'Landing Page' },
+            { type: 'image', src: 'images/imgA4.png', label: 'Dashboard View' },
             { type: 'image', src: 'images/imgA5.png', label: 'NGO Website' },
-            // 3 videos with "A" suffix
-            { type: 'video', src: 'images/VidA1.mp4',
-                poster: 'images/VidA1.mp4', label: 'A website for an NGO, intend to handle media enegagement' },
-            { type: 'video', src: 'images/VidA2.mp4',
-                poster: 'images/VidA2.mp4', label: 'Based in Nigeria' },
-            { type: 'video', src: 'images/VidA3.mp4',
-                poster: 'images/VidA3.mp4', label: 'Client Satisfied' },
+            { type: 'video', src: 'images/VidA1.mp4', poster: 'images/VidA1.mp4', label: 'NGO Media Engagement' },
+            { type: 'video', src: 'images/VidA2.mp4', poster: 'images/VidA2.mp4', label: 'Based in Nigeria' },
+            { type: 'video', src: 'images/VidA3.mp4', poster: 'images/VidA3.mp4', label: 'Client Satisfied' },
         ];
 
         // ============================================================
