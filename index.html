@@ -1055,7 +1055,7 @@
         /**
          * Build a carousel inside a container element.
          * @param {string|HTMLElement} container - selector or element
-         * @param {Array} items - array of { type: 'image'|'video', src, poster? }
+         * @param {Array} items - array of { type: 'image'|'video', src, poster?, label? }
          * @param {Object} opts - { autoplay: boolean, interval: number }
          */
         function buildCarousel(container, items, opts) {
@@ -1085,7 +1085,7 @@
 
                     const label = document.createElement('span');
                     label.className = 'slide-label';
-                    label.textContent = 'img' + (idx + 1);
+                    label.textContent = item.label || 'img' + (idx + 1);
                     slide.appendChild(label);
                 } else if (item.type === 'video') {
                     const video = document.createElement('video');
@@ -1097,13 +1097,12 @@
                     video.setAttribute('playsinline', '');
                     slide.appendChild(video);
 
-                    // label
                     const label = document.createElement('span');
                     label.className = 'slide-label';
-                    label.textContent = 'vid' + (idx + 1);
+                    label.textContent = item.label || 'vid' + (idx + 1);
                     slide.appendChild(label);
 
-                    // play overlay (shown when video is paused)
+                    // play overlay
                     const overlay = document.createElement('div');
                     overlay.className = 'video-play-overlay show';
                     overlay.innerHTML =
@@ -1119,7 +1118,7 @@
                     });
                     slide.appendChild(overlay);
 
-                    // bottom controls (simple play/pause + time)
+                    // bottom controls
                     const controls = document.createElement('div');
                     controls.className = 'video-controls-overlay';
                     const playBtn = document.createElement('button');
@@ -1141,7 +1140,6 @@
                         }
                     });
 
-                    // update time & overlay on video events
                     video.addEventListener('timeupdate', () => {
                         const m = Math.floor(video.currentTime / 60);
                         const s = Math.floor(video.currentTime % 60);
@@ -1162,7 +1160,6 @@
                         playBtn.innerHTML = '▶';
                         timeSpan.textContent = '0:00';
                     });
-                    // click on video toggles play
                     video.addEventListener('click', () => {
                         if (video.paused) {
                             video.play().catch(() => {});
@@ -1173,7 +1170,6 @@
 
                     slide.appendChild(controls);
 
-                    // If video is already playing, hide overlay
                     if (!video.paused) {
                         overlay.classList.remove('show');
                         playBtn.innerHTML = '⏸';
@@ -1185,7 +1181,7 @@
 
             wrapper.appendChild(track);
 
-            // ----- buttons -----
+            // buttons
             const prevBtn = document.createElement('button');
             prevBtn.className = 'carousel-btn prev';
             prevBtn.innerHTML = '‹';
@@ -1198,7 +1194,7 @@
             nextBtn.setAttribute('aria-label', 'Next slide');
             wrapper.appendChild(nextBtn);
 
-            // ----- dots -----
+            // dots
             const dotsContainer = document.createElement('div');
             dotsContainer.className = 'carousel-dots';
             items.forEach((_, i) => {
@@ -1210,11 +1206,10 @@
             });
             wrapper.appendChild(dotsContainer);
 
-            // clear & append
             el.innerHTML = '';
             el.appendChild(wrapper);
 
-            // ----- state -----
+            // state
             let current = 0;
             const total = items.length;
             let autoplayTimer = null;
@@ -1228,7 +1223,6 @@
                 if (index >= total) index = 0;
                 current = index;
 
-                // pause all videos
                 slides.forEach((s, i) => {
                     const v = s.querySelector('video');
                     if (v) {
@@ -1236,7 +1230,6 @@
                             v.pause();
                             v.currentTime = 0;
                         } else {
-                            // autoplay the current video if it's a video slide
                             if (items[i].type === 'video') {
                                 v.play().catch(() => {});
                             }
@@ -1246,12 +1239,10 @@
 
                 track.style.transform = 'translateX(-' + (current * 100) + '%)';
 
-                // update dots
                 dots.forEach((d, i) => {
                     d.classList.toggle('active', i === current);
                 });
 
-                // update overlay for videos
                 slides.forEach((s, i) => {
                     const v = s.querySelector('video');
                     const overlay = s.querySelector('.video-play-overlay');
@@ -1276,13 +1267,9 @@
                 if (autoplayTimer) clearInterval(autoplayTimer);
                 autoplayTimer = setInterval(() => {
                     if (!isHovering) {
-                        // if current slide is a video and it's playing, don't auto-advance
                         const slide = slides[current];
                         const v = slide.querySelector('video');
-                        if (v && !v.paused) {
-                            // wait until video ends or is paused
-                            return;
-                        }
+                        if (v && !v.paused) return;
                         next();
                     }
                 }, opt.interval);
@@ -1295,7 +1282,6 @@
                 }
             }
 
-            // ----- events -----
             prevBtn.addEventListener('click', () => { prev();
                 resetAutoplay(); });
             nextBtn.addEventListener('click', () => { next();
@@ -1309,7 +1295,6 @@
                 });
             });
 
-            // keyboard
             el.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowLeft') { prev();
                     resetAutoplay();
@@ -1319,11 +1304,9 @@
                     e.preventDefault(); }
             });
 
-            // hover pause
             el.addEventListener('mouseenter', () => { isHovering = true; });
             el.addEventListener('mouseleave', () => { isHovering = false; });
 
-            // touch swipe
             let startX = 0;
             let isDragging = false;
             el.addEventListener('touchstart', (e) => {
@@ -1347,74 +1330,74 @@
                 startAutoplay();
             }
 
-            // ----- init -----
             goTo(0);
             startAutoplay();
 
-            // if the carousel is hidden (e.g. in a collapsed section), recalc on reveal
             const observer = new ResizeObserver(() => {
-                // just ensure the track is positioned correctly
                 track.style.transform = 'translateX(-' + (current * 100) + '%)';
             });
             observer.observe(el);
 
-            // expose controls
             return { goTo, next, prev, destroy: () => { stopAutoplay();
                     observer.disconnect(); } };
         }
 
         // ============================================================
-        //  MEDIA ITEMS – 5 images + 3 videos
-        //  Files go in the "images/" folder.
-        //  For images: img1.jpg, img2.jpg, img3.jpg, img4.jpg, img5.jpg
-        //  For videos: vid1.mp4, vid2.mp4, vid3.mp4
+        //  MEDIA ITEMS – TWO SEPARATE SETS
+        //  Shalach: img1–img5, vid1–vid3
+        //  WordPress: imgA1–imgA5, vidA1–vidA3
+        //  Files go in "images/" folder.
         // ============================================================
 
-        // Use placeholder images from picsum so the carousel works out of the box.
-        // The user can replace these with their own files in the images/ folder.
-        const imageItems = [
-            { type: 'image', src: 'images/img1.png' },
-            { type: 'image', src: 'https://picsum.photos/id/1012/800/500' },
-            { type: 'image', src: 'https://picsum.photos/id/1013/800/500' },
-            { type: 'image', src: 'https://picsum.photos/id/1014/800/500' },
-            { type: 'image', src: 'https://picsum.photos/id/1016/800/500' }
+        // ----- SHA LACH (Dental Clinic) -----
+        const shalachItems = [
+            // 5 images
+            { type: 'image', src: 'images/img1.png', label: 'Homepage' },
+            { type: 'image', src: 'images/img2.png', label: 'Login Page' },
+            { type: 'image', src: 'images/img3.png', label: 'Appointments' },
+            { type: 'image', src: 'images/img4.png', label: 'Appointments' },
+            { type: 'image', src: 'images/img5.png', label: 'Patients' },
+            // 3 videos
+            { type: 'video', src: 'images/vid1.mp4',
+                poster: 'images/vid1.mp4', label: 'Homepage' },
+            { type: 'video', src: 'images/vid2.mp4',
+                poster: 'images/vid2.mp4', label: 'Dashboard' },
+            { type: 'video', src: 'images/vid3.mp4',
+                poster: 'images/vid3.mp4', label: 'WhatsApp Integration' },
         ];
 
-        // For videos we use a sample clip. The user can replace with images/vid1.mp4 etc.
-        const videoItems = [
+        // ----- WORDPRESS (Client Sites) -----
+        const wordpressItems = [
+            // 5 images with "A" suffix
+            { type: 'image', src: 'https://picsum.photos/id/1021/800/500', label: 'imgA1' },
+            { type: 'image', src: 'https://picsum.photos/id/1022/800/500', label: 'imgA2' },
+            { type: 'image', src: 'https://picsum.photos/id/1023/800/500', label: 'imgA3' },
+            { type: 'image', src: 'https://picsum.photos/id/1024/800/500', label: 'imgA4' },
+            { type: 'image', src: 'https://picsum.photos/id/1025/800/500', label: 'imgA5' },
+            // 3 videos with "A" suffix
             { type: 'video', src: 'https://www.w3schools.com/html/mov_bbb.mp4',
-            poster: 'https://picsum.photos/id/1015/800/500' },
+                poster: 'https://picsum.photos/id/1026/800/500', label: 'vidA1' },
             { type: 'video', src: 'https://www.w3schools.com/html/mov_bbb.mp4',
-            poster: 'https://picsum.photos/id/1018/800/500' },
+                poster: 'https://picsum.photos/id/1027/800/500', label: 'vidA2' },
             { type: 'video', src: 'https://www.w3schools.com/html/mov_bbb.mp4',
-            poster: 'https://picsum.photos/id/1020/800/500' },
+                poster: 'https://picsum.photos/id/1028/800/500', label: 'vidA3' },
         ];
-
-        // Combine: 5 images then 3 videos = 8 slides
-        const carouselItems = [...imageItems, ...videoItems];
 
         // ============================================================
         //  BUILD BOTH CAROUSELS
         // ============================================================
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Carousel 1 – Dental Clinic
+            // Carousel 1 – Shalach La El Dental Clinic
             const c1 = document.getElementById('carousel-1');
             if (c1) {
-                buildCarousel(c1, carouselItems, { autoplay: true, interval: 4500 });
+                buildCarousel(c1, shalachItems, { autoplay: true, interval: 4500 });
             }
 
-            // Carousel 2 – WordPress (use same items, or a subset)
+            // Carousel 2 – WordPress / Client Sites
             const c2 = document.getElementById('carousel-2');
             if (c2) {
-                // Use a slightly different set for variety, but still 8 items
-                // We'll reuse the same items but shuffle the order a bit
-                const shuffled = [
-                    carouselItems[3], carouselItems[0], carouselItems[5],
-                    carouselItems[1], carouselItems[6], carouselItems[2],
-                    carouselItems[4], carouselItems[7]
-                ];
-                buildCarousel(c2, shuffled, { autoplay: true, interval: 4000 });
+                buildCarousel(c2, wordpressItems, { autoplay: true, interval: 4000 });
             }
 
             // ---- reveal observer ----
