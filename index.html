@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assan Faal — Jr. Developer</title>
+    <title>Assan Faal — Full Stack Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="images/StillAssan1.png">
+    <link rel="icon" type="image/png" href="StillAssan1.png">
     <style>
         /* ===== ROOT ===== */
         :root {
@@ -424,6 +424,21 @@
         @media (max-width: 820px) {
             .project-card {
                 grid-template-columns: 1fr;
+            }
+            .project-media {
+                min-height: 0;
+                aspect-ratio: 4 / 3;
+            }
+            .carousel-container,
+            .carousel-track,
+            .carousel-slide {
+                min-height: 0;
+            }
+            .project-card:first-child .project-media {
+                order: 2;
+            }
+            .project-card:first-child .project-info {
+                order: 1;
             }
         }
 
@@ -884,7 +899,7 @@
             <div class="hero-grid">
                 <div>
                     <div class="pill"><span class="dot"></span> Available for new projects</div>
-                    <h1 class="headline">Full Stack<br />Dev<br /><span class="accent">Still Learning It All — On The Job.</span></h1>
+                    <h1 class="headline">Full Stack<br />Developer. Tech?<br /><span class="accent">Basically Do It All.</span></h1>
                     <p class="lede">I build custom automation systems for businesses: real-time booking flows, admin dashboards, records management, and workflow automation that replaces manual, paper-based processes — shipped end-to-end and maintained post-launch.</p>
                     <div class="hero-ctas">
                         <a class="btn primary" href="#contact">Start a Project</a>
@@ -893,7 +908,7 @@
                 </div>
                 <div>
                     <div class="mark-panel">
-                        <img class="hero-photo" src="images/StillAssan1.png" alt="Assan Faal">
+                        <img class="hero-photo" src="StillAssan1.png" alt="Assan Faal">
                         <div class="mark-corner"></div>
                         <div class="mark-tag mono">Assan Faal, Freelancer &amp; Undergraduate Student</div>
                     </div>
@@ -923,7 +938,7 @@
             <div class="about-grid">
                 <div class="about-media reveal"><span class="glyph mono">&lt;/&gt;</span></div>
                 <div class="about-copy reveal">
-                    <p><strong>I'm Assan Faal</strong>, a freelance Jr. Developer, currently studying Information Systems at the University of The Gambia.</p>
+                    <p><strong>I'm Assan Faal</strong>, a freelance full stack developer based in Brikama, The Gambia, currently studying Information Systems at the University of The Gambia.</p>
                     <p>My focus is building the digital back-office that real, physical businesses run on — the booking system, the records, the receipts, the dashboard the owner checks every morning. My flagship build is a full clinic management system for a private dental practice, covering everything from patient records to revenue tracking.</p>
                     <p>Alongside that I take on WordPress builds for smaller clients, and I've volunteered as a graphic designer for PyCon Senegambia — so the design side of a project is never an afterthought.</p>
                 </div>
@@ -1023,7 +1038,7 @@
                 </div>
                 <div class="tl-item">
                     <div class="tl-year">2024 — Present</div>
-                    <h4>Freelance Junior Developer</h4>
+                    <h4>Freelance Junior Full Stack Developer</h4>
                     <p>Designing and shipping full systems for real clients, from first mockup to live deploy.</p>
                 </div>
                 <div class="tl-item">
@@ -1377,18 +1392,18 @@
         // ----- WORDPRESS (Client Sites) -----
         const wordpressItems = [
             // 5 images with "A" suffix
-            { type: 'image', src: 'images/imgA.png', label: 'NGO Website' },
-            { type: 'image', src: 'images/imgA2.png', label: 'A Client from Nigeria' },
-            { type: 'image', src: 'images/imgA3.png', label: 'Satisfied' },
-            { type: 'image', src: 'images/imgA4.png', label: 'Implemented a donation plugin' },
-            { type: 'image', src: 'images/imgA5.png', label: 'With Forms' },
+            { type: 'image', src: 'images/imgA1.png', label: 'NGO Website, client from Nigeria' },
+            { type: 'image', src: 'images/imgA2.png', label: '' },
+            { type: 'image', src: 'images/imgA3.png', label: '' },
+            { type: 'image', src: 'images/imgA4.png', label: '' },
+            { type: 'image', src: 'images/imgA5.png', label: 'NGO Website' },
             // 3 videos with "A" suffix
             { type: 'video', src: 'images/VidA1.mp4',
-                poster: 'images/VidA1.jpg', label: 'WordPress site for a ministry' },
-            { type: 'video', src: 'images/VSidA2.mp4',
-                poster: 'images/VidA2.jpg', label: 'WordPress site for a ministry' },
+                poster: 'images/VidA1.mp4', label: 'A website for an NGO, intend to handle media enegagement' },
+            { type: 'video', src: 'images/VidA2.mp4',
+                poster: 'images/VidA2.mp4', label: 'Based in Nigeria' },
             { type: 'video', src: 'images/VidA3.mp4',
-                poster: 'images/VidA3.jpg', label: 'WordPress site for a nonprofit' },
+                poster: 'images/VidA3.mp4', label: 'Client Satisfied' },
         ];
 
         // ============================================================
