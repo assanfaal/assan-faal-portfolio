@@ -1,444 +1,1434 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Assan Faal — Full Stack Developer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0a0a0a;
-    --panel:#151515;
-    --panel-alt:#1c1c1c;
-    --orange:#ff4e1f;
-    --orange-dim:#c93c14;
-    --white:#f4f2ee;
-    --gray:#96938d;
-    --line:rgba(244,242,238,0.09);
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0; background:var(--bg); color:var(--white);
-    font-family:'IBM Plex Sans', sans-serif;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  ::selection{background:var(--orange); color:#0a0a0a;}
-  a{color:inherit;}
-  .wrap{max-width:1120px; margin:0 auto; padding:0 28px;}
-  .mono{font-family:'IBM Plex Mono', monospace;}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assan Faal — Full Stack Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== ROOT ===== */
+        :root {
+            --bg: #0a0a0a;
+            --panel: #151515;
+            --panel-alt: #1c1c1c;
+            --orange: #ff4e1f;
+            --orange-dim: #c93c14;
+            --white: #f4f2ee;
+            --gray: #96938d;
+            --line: rgba(244, 242, 238, 0.09);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'IBM Plex Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        ::selection {
+            background: var(--orange);
+            color: #0a0a0a;
+        }
+        a {
+            color: inherit;
+        }
+        .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+        .mono {
+            font-family: 'IBM Plex Mono', monospace;
+        }
 
-  /* dotted circuit line decoration used across the page */
-  .dotline{position:absolute; pointer-events:none;}
-  .dotline svg{width:100%; height:100%;}
+        /* ===== NAV ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 60;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid var(--line);
+        }
+        nav .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 74px;
+        }
+        .brand {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 20px;
+            letter-spacing: 0.01em;
+        }
+        .brand span {
+            color: var(--orange);
+        }
+        .navlinks {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .navlinks a {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .navlinks a:hover {
+            opacity: 1;
+        }
+        .nav-cta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: var(--orange);
+            color: #0a0a0a;
+            padding: 11px 20px;
+            text-decoration: none;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            transition: transform 0.15s ease, background 0.2s ease;
+        }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            background: #ff6b3d;
+        }
+        @media (max-width: 760px) {
+            .navlinks a {
+                display: none;
+            }
+        }
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--orange);
+            outline-offset: 3px;
+        }
 
-  /* ---------- NAV ---------- */
-  nav{position:sticky; top:0; z-index:60; background:rgba(10,10,10,0.9); backdrop-filter:blur(6px); border-bottom:1px solid var(--line);}
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:74px;}
-  .brand{font-family:'Archivo Black', sans-serif; font-size:20px; letter-spacing:0.01em;}
-  .brand span{color:var(--orange);}
-  .navlinks{display:flex; align-items:center; gap:30px;}
-  .navlinks a{font-family:'IBM Plex Mono', monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.09em; text-decoration:none; opacity:0.7; transition:opacity .2s;}
-  .navlinks a:hover{opacity:1;}
-  .nav-cta{
-    font-family:'IBM Plex Mono', monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.06em;
-    background:var(--orange); color:#0a0a0a; padding:11px 20px; text-decoration:none;
-    clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
-    transition:transform .15s ease, background .2s ease;
-  }
-  .nav-cta:hover{transform:translateY(-2px); background:#ff6b3d;}
-  @media(max-width:760px){ .navlinks a{display:none;} }
+        /* ===== HERO ===== */
+        header.hero {
+            position: relative;
+            padding: 76px 0 0;
+            overflow: hidden;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            padding: 8px 16px;
+            border-radius: 30px;
+            margin-bottom: 26px;
+            opacity: 0;
+            animation: riseIn 0.7s ease forwards 0.1s;
+        }
+        .pill .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--orange);
+            box-shadow: 0 0 0 0 rgba(255, 78, 31, 0.6);
+            animation: pulse 2.2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 78, 31, 0.55);
+            }
+            70% {
+                box-shadow: 0 0 0 8px rgba(255, 78, 31, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 78, 31, 0);
+            }
+        }
+        h1.headline {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(38px, 5.4vw, 64px);
+            line-height: 1.02;
+            margin: 0 0 20px;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            animation: riseIn 0.8s ease forwards 0.22s;
+        }
+        h1.headline .accent {
+            color: var(--orange);
+        }
+        .hero p.lede {
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--gray);
+            max-width: 480px;
+            margin: 0 0 34px;
+            opacity: 0;
+            animation: riseIn 0.8s ease forwards 0.38s;
+        }
+        @keyframes riseIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+            opacity: 0;
+            animation: riseIn 0.8s ease forwards 0.52s;
+        }
+        .btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            padding: 15px 26px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+        }
+        .btn.primary {
+            background: var(--orange);
+            color: #0a0a0a;
+            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+        }
+        .btn.primary:hover {
+            transform: translateY(-2px);
+            background: #ff6b3d;
+        }
+        .btn.ghost {
+            border: 1px solid var(--line);
+            color: var(--white);
+        }
+        .btn.ghost:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+            transform: translateY(-2px);
+        }
 
-  a:focus-visible, button:focus-visible{outline:2px solid var(--orange); outline-offset:3px;}
+        /* mark panel */
+        .mark-panel {
+            position: relative;
+            aspect-ratio: 4/5;
+            max-width: 440px;
+            margin: 0 auto;
+            background: var(--panel);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 14% 100%, 0 84%);
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: riseIn 0.9s ease forwards 0.3s;
+        }
+        .mark-panel .initials {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(70px, 11vw, 120px);
+            color: var(--white);
+            position: relative;
+            z-index: 2;
+        }
+        .mark-panel .initials span {
+            color: var(--orange);
+        }
+        .mark-corner {
+            position: absolute;
+            background: var(--orange);
+            width: 120px;
+            height: 120px;
+            top: -1px;
+            right: -1px;
+            clip-path: polygon(100% 0, 100% 100%, 0 0);
+        }
+        .mark-tag {
+            position: absolute;
+            bottom: 26px;
+            left: 26px;
+            z-index: 2;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--gray);
+            background: rgba(10, 10, 10, 0.7);
+            padding: 8px 12px;
+            border: 1px solid var(--line);
+        }
 
-  /* ---------- HERO ---------- */
-  header.hero{position:relative; padding:76px 0 0; overflow:hidden;}
-  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:40px; align-items:center; position:relative; z-index:2;}
-  @media(max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+        /* ===== STATS ===== */
+        .stats-band {
+            background: var(--orange);
+            color: #0a0a0a;
+            margin-top: 70px;
+            clip-path: polygon(0 18px, 100% 0, 100% calc(100% - 18px), 0 100%);
+            padding: 40px 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        @media (max-width: 760px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 28px;
+            }
+        }
+        .stat-value {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(30px, 4vw, 44px);
+            line-height: 1;
+        }
+        .stat-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 8px;
+            opacity: 0.75;
+        }
 
-  .pill{
-    display:inline-flex; align-items:center; gap:9px;
-    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
-    background:var(--panel); border:1px solid var(--line); padding:8px 16px; border-radius:30px;
-    margin-bottom:26px; opacity:0; animation:riseIn .7s ease forwards .1s;
-  }
-  .pill .dot{width:7px; height:7px; border-radius:50%; background:var(--orange); box-shadow:0 0 0 0 rgba(255,78,31,0.6); animation:pulse 2.2s infinite;}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,78,31,0.55);}70%{box-shadow:0 0 0 8px rgba(255,78,31,0);}100%{box-shadow:0 0 0 0 rgba(255,78,31,0);}}
+        /* ===== SECTION SHARED ===== */
+        section {
+            padding: 100px 0;
+        }
+        .section-head {
+            margin-bottom: 50px;
+        }
+        .section-head .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--orange);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .section-head h2 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(28px, 4.2vw, 42px);
+            margin: 0;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-  h1.headline{
-    font-family:'Archivo Black', sans-serif; font-size:clamp(38px,5.4vw,64px);
-    line-height:1.02; margin:0 0 20px; letter-spacing:-0.01em;
-    opacity:0; animation:riseIn .8s ease forwards .22s;
-  }
-  h1.headline .accent{color:var(--orange);}
-  .hero p.lede{
-    font-size:17px; line-height:1.7; color:var(--gray); max-width:480px; margin:0 0 34px;
-    opacity:0; animation:riseIn .8s ease forwards .38s;
-  }
-  @keyframes riseIn{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);}}
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 56px;
+            align-items: center;
+        }
+        @media (max-width: 860px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .about-media {
+            aspect-ratio: 1/1;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 88% 100%, 0 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .about-media::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(255, 78, 31, 0.14) 0%, transparent 45%),
+                repeating-linear-gradient(90deg, rgba(244, 242, 238, 0.05) 0 1px, transparent 1px 34px);
+        }
+        .about-media .glyph {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 96px;
+            color: var(--line);
+            position: relative;
+            z-index: 1;
+        }
+        .about-copy p {
+            line-height: 1.75;
+            color: var(--gray);
+            margin: 0 0 18px;
+            font-size: 16px;
+        }
+        .about-copy strong {
+            color: var(--white);
+        }
 
-  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:56px; opacity:0; animation:riseIn .8s ease forwards .52s;}
-  .btn{
-    font-family:'IBM Plex Mono', monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.05em;
-    text-decoration:none; padding:15px 26px; display:inline-flex; align-items:center; gap:8px;
-    transition:transform .15s ease, background .2s ease, color .2s ease;
-  }
-  .btn.primary{
-    background:var(--orange); color:#0a0a0a;
-    clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
-  }
-  .btn.primary:hover{transform:translateY(-2px); background:#ff6b3d;}
-  .btn.ghost{border:1px solid var(--line); color:var(--white);}
-  .btn.ghost:hover{border-color:var(--orange); color:var(--orange); transform:translateY(-2px);}
+        /* ===== PROJECTS ===== */
+        .project-card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            margin-bottom: 28px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            overflow: hidden;
+        }
+        .project-card:nth-child(even) {
+            grid-template-columns: 1fr 1fr;
+        }
+        @media (max-width: 820px) {
+            .project-card {
+                grid-template-columns: 1fr;
+            }
+        }
 
-  /* hero mark panel (replaces photo — initials mark, diagonal cut, dotted circuit lines) */
-  .mark-panel{
-    position:relative; aspect-ratio:4/5; max-width:440px; margin:0 auto;
-    background:var(--panel);
-    clip-path:polygon(0 0, 100% 0, 100% 100%, 14% 100%, 0 84%);
-    border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center;
-    opacity:0; animation:riseIn .9s ease forwards .3s;
-  }
-  .mark-panel .initials{
-    font-family:'Archivo Black', sans-serif; font-size:clamp(70px,11vw,120px); color:var(--white);
-    position:relative; z-index:2;
-  }
-  .mark-panel .initials span{color:var(--orange);}
-  .mark-corner{
-    position:absolute; background:var(--orange);
-    width:120px; height:120px; top:-1px; right:-1px;
-    clip-path:polygon(100% 0, 100% 100%, 0 0);
-  }
-  .mark-tag{
-    position:absolute; bottom:26px; left:26px; z-index:2;
-    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--gray);
-    background:rgba(10,10,10,0.7); padding:8px 12px; border:1px solid var(--line);
-  }
+        /* ---- Carousel styles ---- */
+        .project-media {
+            position: relative;
+            min-height: 300px;
+            background: var(--panel-alt);
+            overflow: hidden;
+        }
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            overflow: hidden;
+            background: #111;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            height: 100%;
+            min-height: 300px;
+        }
+        .carousel-slide {
+            flex: 0 0 100%;
+            height: 100%;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #141414;
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-slide img,
+        .carousel-slide video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .carousel-slide video {
+            background: #0a0a0a;
+        }
+        /* video overlay play button (shown when video not playing) */
+        .carousel-slide .video-play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.35);
+            cursor: pointer;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .carousel-slide .video-play-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .carousel-slide .video-play-overlay svg {
+            width: 64px;
+            height: 64px;
+            filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.7));
+            transition: transform 0.2s;
+        }
+        .carousel-slide .video-play-overlay:hover svg {
+            transform: scale(1.08);
+        }
+        /* slide label (for placeholder) */
+        .slide-label {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+            pointer-events: none;
+            z-index: 2;
+        }
+        /* video controls overlay */
+        .carousel-slide .video-controls-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 16px 12px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .carousel-slide:hover .video-controls-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .carousel-slide .video-controls-overlay button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 4px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .carousel-slide .video-controls-overlay button:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .carousel-slide .video-controls-overlay .time {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-left: auto;
+        }
 
-  /* ---------- STATS DIAGONAL BAND ---------- */
-  .stats-band{
-    background:var(--orange); color:#0a0a0a; margin-top:70px;
-    clip-path:polygon(0 18px, 100% 0, 100% calc(100% - 18px), 0 100%);
-    padding:40px 0;
-  }
-  .stats-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center;}
-  @media(max-width:760px){ .stats-grid{grid-template-columns:repeat(2,1fr); gap:28px;} }
-  .stat-value{font-family:'Archivo Black', sans-serif; font-size:clamp(30px,4vw,44px); line-height:1;}
-  .stat-label{font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; margin-top:8px; opacity:0.75;}
+        /* carousel buttons */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.25s, transform 0.2s, opacity 0.25s;
+            backdrop-filter: blur(4px);
+            opacity: 0.7;
+        }
+        .carousel-btn:hover {
+            background: rgba(255, 78, 31, 0.8);
+            border-color: var(--orange);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.05);
+        }
+        .carousel-btn.prev {
+            left: 12px;
+        }
+        .carousel-btn.next {
+            right: 12px;
+        }
+        @media (max-width: 600px) {
+            .carousel-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+            .carousel-btn.prev {
+                left: 6px;
+            }
+            .carousel-btn.next {
+                right: 6px;
+            }
+        }
 
-  /* ---------- SECTION SHARED ---------- */
-  section{padding:100px 0;}
-  .section-head{margin-bottom:50px;}
-  .section-head .tag{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--orange); letter-spacing:0.1em; text-transform:uppercase; display:block; margin-bottom:10px;}
-  .section-head h2{font-family:'Archivo Black', sans-serif; font-size:clamp(28px,4.2vw,42px); margin:0;}
+        /* dots */
+        .carousel-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 6px 14px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+        .carousel-dots .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            padding: 0;
+        }
+        .carousel-dots .dot.active {
+            background: var(--orange);
+            transform: scale(1.25);
+        }
+        .carousel-dots .dot:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
 
-  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease;}
-  .reveal.in{opacity:1; transform:translateY(0);}
+        /* project info */
+        .project-info {
+            padding: 34px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .project-info .ptag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--orange);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+        .project-info h3 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 24px;
+            margin: 0 0 14px;
+        }
+        .project-info p {
+            color: var(--gray);
+            line-height: 1.7;
+            margin: 0 0 18px;
+            font-size: 15px;
+        }
+        .featurelist {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px;
+        }
+        .featurelist li {
+            font-size: 13.5px;
+            color: var(--gray);
+            line-height: 1.6;
+            padding-left: 18px;
+            position: relative;
+            margin-bottom: 6px;
+        }
+        .featurelist li::before {
+            content: "›";
+            position: absolute;
+            left: 0;
+            color: var(--orange);
+            font-weight: 700;
+        }
+        .stackrow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .chip {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            border: 1px solid var(--line);
+            padding: 5px 11px;
+            color: var(--gray);
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12.5px;
+            color: var(--orange);
+            text-decoration: none;
+            border-bottom: 1px solid var(--orange-dim);
+            padding-bottom: 2px;
+            width: fit-content;
+        }
+        .project-link:hover {
+            color: #ff6b3d;
+        }
 
-  /* ---------- ABOUT / STORY ---------- */
-  .about-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:center;}
-  @media(max-width:860px){ .about-grid{grid-template-columns:1fr;} }
-  .about-media{
-    aspect-ratio:1/1; background:var(--panel); border:1px solid var(--line);
-    clip-path:polygon(0 0,100% 0,100% 88%,88% 100%,0 100%);
-    position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;
-  }
-  .about-media::before{
-    content:""; position:absolute; inset:0;
-    background:
-      linear-gradient(135deg, rgba(255,78,31,0.14) 0%, transparent 45%),
-      repeating-linear-gradient(90deg, rgba(244,242,238,0.05) 0 1px, transparent 1px 34px);
-  }
-  .about-media .glyph{font-family:'Archivo Black', sans-serif; font-size:96px; color:var(--line); position:relative; z-index:1;}
-  .about-copy p{line-height:1.75; color:var(--gray); margin:0 0 18px; font-size:16px;}
-  .about-copy strong{color:var(--white);}
+        /* ===== TOOLBOX ===== */
+        .toolbox {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+        }
+        @media (max-width: 760px) {
+            .toolbox {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .tool-group {
+            background: var(--panel);
+            padding: 26px;
+            border-top: 2px solid var(--orange);
+        }
+        .tool-group h4 {
+            font-family: 'IBM Plex Mono', monospace;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.09em;
+            color: var(--orange);
+            margin: 0 0 16px;
+        }
+        .tool-group ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .tool-group li {
+            font-size: 14.5px;
+            padding: 8px 0;
+            border-top: 1px solid var(--line);
+            color: var(--white);
+        }
+        .tool-group li:first-child {
+            border-top: none;
+        }
 
-  /* ---------- PROJECTS ---------- */
-  .project-card{
-    background:var(--panel); border:1px solid var(--line); margin-bottom:28px;
-    display:grid; grid-template-columns:1fr 1fr; gap:0; overflow:hidden;
-  }
-  .project-card:nth-child(even){grid-template-columns:1fr 1fr;}
-  @media(max-width:820px){ .project-card{grid-template-columns:1fr;} }
+        /* ===== TIMELINE ===== */
+        .timeline {
+            border-left: 1px solid var(--line);
+            margin-left: 6px;
+        }
+        .tl-item {
+            position: relative;
+            padding: 0 0 38px 30px;
+        }
+        .tl-item:last-child {
+            padding-bottom: 0;
+        }
+        .tl-item::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            top: 2px;
+            width: 11px;
+            height: 11px;
+            background: var(--orange);
+            clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+        }
+        .tl-year {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11.5px;
+            color: var(--orange);
+            margin-bottom: 5px;
+        }
+        .tl-item h4 {
+            margin: 0 0 6px;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 17px;
+        }
+        .tl-item p {
+            margin: 0;
+            line-height: 1.65;
+            color: var(--gray);
+            max-width: 560px;
+            font-size: 14.5px;
+        }
 
-  .project-media{
-    position:relative; min-height:260px; background:var(--panel-alt);
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
-    border:1px dashed rgba(255,78,31,0.4);
-  }
-  .project-media .browser-bar{
-    position:absolute; top:0; left:0; right:0; height:30px; background:#111; border-bottom:1px solid var(--line);
-    display:flex; align-items:center; gap:6px; padding:0 12px;
-  }
-  .browser-bar i{width:8px; height:8px; border-radius:50%; background:#3a3a3a; display:inline-block;}
-  .project-media .placeholder-label{
-    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--orange); text-transform:uppercase; letter-spacing:0.06em;
-    text-align:center; padding:0 20px;
-  }
-  .project-media .placeholder-sub{font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--gray); text-align:center;}
-  .project-media svg{opacity:0.5;}
+        /* ===== FOOTER / CONTACT ===== */
+        footer {
+            background: var(--panel);
+            position: relative;
+            padding: 0;
+            border-top: 1px solid var(--line);
+        }
+        .contact-band {
+            background: var(--orange);
+            color: #0a0a0a;
+            padding: 90px 0 70px;
+            clip-path: polygon(0 26px, 100% 0, 100% 100%, 0 100%);
+        }
+        .contact-band h2 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(32px, 6.2vw, 58px);
+            margin: 0 0 20px;
+            line-height: 1.03;
+        }
+        .contact-band p.sub {
+            font-size: 16.5px;
+            max-width: 480px;
+            line-height: 1.6;
+            margin: 0 0 36px;
+            color: rgba(10, 10, 10, 0.78);
+        }
+        .contact-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .contact-card {
+            border: 1.5px solid #0a0a0a;
+            padding: 16px 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13.5px;
+            text-decoration: none;
+            color: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 190px;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+        .contact-card:hover {
+            background: rgba(10, 10, 10, 0.08);
+            transform: translateY(-2px);
+        }
+        .contact-card .label {
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0.7;
+        }
+        .foot-bottom {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 24px 0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11.5px;
+            color: var(--gray);
+        }
 
-  .project-info{padding:34px 32px; display:flex; flex-direction:column; justify-content:center;}
-  .project-info .ptag{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--orange); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;}
-  .project-info h3{font-family:'Archivo Black', sans-serif; font-size:24px; margin:0 0 14px;}
-  .project-info p{color:var(--gray); line-height:1.7; margin:0 0 18px; font-size:15px;}
-  .featurelist{list-style:none; padding:0; margin:0 0 20px;}
-  .featurelist li{font-size:13.5px; color:var(--gray); line-height:1.6; padding-left:18px; position:relative; margin-bottom:6px;}
-  .featurelist li::before{content:"›"; position:absolute; left:0; color:var(--orange); font-weight:700;}
-  .stackrow{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
-  .chip{font-family:'IBM Plex Mono', monospace; font-size:11px; border:1px solid var(--line); padding:5px 11px; color:var(--gray);}
-  .project-link{
-    display:inline-flex; align-items:center; gap:7px; font-family:'IBM Plex Mono', monospace; font-size:12.5px;
-    color:var(--orange); text-decoration:none; border-bottom:1px solid var(--orange-dim); padding-bottom:2px; width:fit-content;
-  }
-  .project-link:hover{color:#ff6b3d;}
-
-  /* ---------- TOOLBOX ---------- */
-  .toolbox{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
-  @media(max-width:760px){ .toolbox{grid-template-columns:repeat(2,1fr);} }
-  .tool-group{background:var(--panel); padding:26px; border-top:2px solid var(--orange);}
-  .tool-group h4{font-family:'IBM Plex Mono', monospace; text-transform:uppercase; font-size:11px; letter-spacing:0.09em; color:var(--orange); margin:0 0 16px;}
-  .tool-group ul{list-style:none; margin:0; padding:0;}
-  .tool-group li{font-size:14.5px; padding:8px 0; border-top:1px solid var(--line); color:var(--white);}
-  .tool-group li:first-child{border-top:none;}
-
-  /* ---------- TIMELINE ---------- */
-  .timeline{border-left:1px solid var(--line); margin-left:6px;}
-  .tl-item{position:relative; padding:0 0 38px 30px;}
-  .tl-item:last-child{padding-bottom:0;}
-  .tl-item::before{content:""; position:absolute; left:-6px; top:2px; width:11px; height:11px; background:var(--orange); clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);}
-  .tl-year{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--orange); margin-bottom:5px;}
-  .tl-item h4{margin:0 0 6px; font-family:'Archivo Black', sans-serif; font-size:17px;}
-  .tl-item p{margin:0; line-height:1.65; color:var(--gray); max-width:560px; font-size:14.5px;}
-
-  /* ---------- CONTACT ---------- */
-  footer{
-    background:var(--panel); position:relative; padding:0; margin:0 0 0;
-    border-top:1px solid var(--line);
-  }
-  .contact-band{
-    background:var(--orange); color:#0a0a0a; padding:90px 0 70px;
-    clip-path:polygon(0 26px, 100% 0, 100% 100%, 0 100%);
-  }
-  .contact-band h2{font-family:'Archivo Black', sans-serif; font-size:clamp(32px,6.2vw,58px); margin:0 0 20px; line-height:1.03;}
-  .contact-band p.sub{font-size:16.5px; max-width:480px; line-height:1.6; margin:0 0 36px; color:rgba(10,10,10,0.78);}
-  .contact-row{display:flex; gap:16px; flex-wrap:wrap;}
-  .contact-card{
-    border:1.5px solid #0a0a0a; padding:16px 20px; font-family:'IBM Plex Mono', monospace; font-size:13.5px;
-    text-decoration:none; color:#0a0a0a; display:flex; flex-direction:column; gap:4px; min-width:190px;
-    transition:background .2s ease, transform .15s ease;
-  }
-  .contact-card:hover{background:rgba(10,10,10,0.08); transform:translateY(-2px);}
-  .contact-card .label{font-size:10.5px; text-transform:uppercase; letter-spacing:0.08em; opacity:0.7;}
-  .foot-bottom{
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
-    padding:24px 0; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--gray);
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
-  }
-</style>
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <div class="brand">ASSAN<span>.</span></div>
-    <div class="navlinks">
-      <a href="#work">Work</a>
-      <a href="#toolbox">Toolbox</a>
-      <a href="#about">About</a>
-    </div>
-    <a class="nav-cta" href="#contact">Let's Talk</a>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <div class="pill"><span class="dot"></span> Available for new projects</div>
-        <h1 class="headline">Full Stack<br>Developer from<br><span class="accent">The Gambia</span></h1>
-        <p class="lede">I build booking flows, dashboards, records systems, and storefronts that local businesses actually run their day on — from first mockup to live deploy, and I keep it running after.</p>
-        <div class="hero-ctas">
-          <a class="btn primary" href="#contact">Start a Project</a>
-          <a class="btn ghost" href="#work">View Work</a>
+    <!-- ===== NAV ===== -->
+    <nav>
+        <div class="wrap">
+            <div class="brand">ASSAN<span>.</span></div>
+            <div class="navlinks">
+                <a href="#work">Work</a>
+                <a href="#toolbox">Toolbox</a>
+                <a href="#about">About</a>
+            </div>
+            <a class="nav-cta" href="#contact">Let's Talk</a>
         </div>
-      </div>
-      <div>
-        <div class="mark-panel">
-          <div class="mark-corner"></div>
-          <div class="initials">A<span>F</span></div>
-          <div class="mark-tag mono">Assan Faal, Freelancer & Undergraduate Student </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <header class="hero">
+        <div class="wrap">
+            <div class="hero-grid">
+                <div>
+                    <div class="pill"><span class="dot"></span> Available for new projects</div>
+                    <h1 class="headline">Full Stack<br />Developer from<br /><span class="accent">The Gambia</span></h1>
+                    <p class="lede">I build custom automation systems for businesses: real-time booking flows, admin dashboards, records management, and workflow automation that replaces manual, paper-based processes — shipped end-to-end and maintained post-launch.</p>
+                    <div class="hero-ctas">
+                        <a class="btn primary" href="#contact">Start a Project</a>
+                        <a class="btn ghost" href="#work">View Work</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="mark-panel">
+                        <div class="mark-corner"></div>
+                        <div class="initials">A<span>F</span></div>
+                        <div class="mark-tag mono">Assan Faal, Freelancer &amp; Undergraduate Student</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="stats-band">
-    <div class="wrap">
-      <div class="stats-grid">
-        <div><div class="stat-value">2024</div><div class="stat-label">Freelancing Since</div></div>
-        <div><div class="stat-value">1</div><div class="stat-label">Full System Shipped</div></div>
-        <div><div class="stat-value">10+</div><div class="stat-label">Tools In The Stack</div></div>
-        <div><div class="stat-value">01</div><div class="stat-label">PyCon Volunteered</div></div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<section id="about">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="tag">01 / About</span>
-      <h2>Where the code meets the counter</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-media reveal"><span class="glyph mono">&lt;/&gt;</span></div>
-      <div class="about-copy reveal">
-        <p><strong>I'm Assan Faal</strong>, a freelance full stack developer based in Brikama, The Gambia, currently studying Information Systems at the University of The Gambia.</p>
-        <p>My focus is building the digital back-office that real, physical businesses run on — the booking system, the records, the receipts, the dashboard the owner checks every morning. My flagship build is a full clinic management system for a private dental practice, covering everything from patient records to revenue tracking.</p>
-        <p>Alongside that I take on WordPress builds for smaller clients, and I've volunteered as a graphic designer for PyCon Senegambia — so the design side of a project is never an afterthought.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="work" style="background:var(--panel-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="tag">02 / Case Files</span>
-      <h2>Selected work</h2>
-    </div>
-
-    <div class="project-card reveal">
-      <div class="project-media">
-        <div class="browser-bar"><i></i><i></i><i></i></div>
-        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#ff4e1f" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
-        <div class="placeholder-label">Screenshot / demo video goes here</div>
-        <div class="placeholder-sub">— dashboard &amp; booking flow —</div>
-      </div>
-      <div class="project-info">
-        <div class="ptag">Live &amp; Maintained</div>
-        <h3>Shalach La El (Hope) Dental Clinic</h3>
-        <p>A full clinic management system — public landing page plus a staff-only admin — built end to end for a private dental practice in The Gambia.</p>
-        <ul class="featurelist">
-          <li>Staff auth portal + admin dashboard with appointments, revenue, daily schedule</li>
-          <li>Searchable patient records with medical history and file attachments</li>
-          <li>Real-time appointment booking with slot availability</li>
-          <li>Payment/revenue tracking and an expense tracker with filters</li>
-          <li>Document generator for prescriptions, receipts, referrals, certificates</li>
-        </ul>
-        <div class="stackrow">
-          <span class="chip">Next.js</span><span class="chip">React</span><span class="chip">Firebase</span><span class="chip">Tailwind</span><span class="chip">react-pdf</span><span class="chip">Vercel</span>
+        <div class="stats-band">
+            <div class="wrap">
+                <div class="stats-grid">
+                    <div><div class="stat-value">2024</div><div class="stat-label">Freelancing Since</div></div>
+                    <div><div class="stat-value">1</div><div class="stat-label">Full System Shipped</div></div>
+                    <div><div class="stat-value">10+</div><div class="stat-label">Tools In The Stack</div></div>
+                    <div><div class="stat-value">01</div><div class="stat-label">PyCon Volunteered</div></div>
+                </div>
+            </div>
         </div>
-        <a class="project-link" href="https://shalachdentalclinic.com" target="_blank" rel="noopener">Visit live site →</a>
-      </div>
-    </div>
+    </header>
 
-    <div class="project-card reveal">
-      <div class="project-info">
-        <div class="ptag">Freelance</div>
-        <h3>WordPress &amp; Client Sites</h3>
-        <p>Custom WordPress websites and landing pages for small business clients — themes and plugins customized to each client's layout, branding, and functionality.</p>
-        <div class="stackrow">
-          <span class="chip">WordPress</span><span class="chip">Custom Themes</span><span class="chip">Plugins</span>
+    <!-- ===== ABOUT ===== -->
+    <section id="about">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="tag">01 / About</span>
+                <h2>Where the code meets the counter</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-media reveal"><span class="glyph mono">&lt;/&gt;</span></div>
+                <div class="about-copy reveal">
+                    <p><strong>I'm Assan Faal</strong>, a freelance full stack developer based in Brikama, The Gambia, currently studying Information Systems at the University of The Gambia.</p>
+                    <p>My focus is building the digital back-office that real, physical businesses run on — the booking system, the records, the receipts, the dashboard the owner checks every morning. My flagship build is a full clinic management system for a private dental practice, covering everything from patient records to revenue tracking.</p>
+                    <p>Alongside that I take on WordPress builds for smaller clients, and I've volunteered as a graphic designer for PyCon Senegambia — so the design side of a project is never an afterthought.</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="project-media">
-        <div class="browser-bar"><i></i><i></i><i></i></div>
-        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#ff4e1f" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r=".6" fill="#ff4e1f" stroke="none"/></svg>
-        <div class="placeholder-label">Client site screenshots go here</div>
-        <div class="placeholder-sub">— swap in real project shots —</div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="toolbox">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="tag">03 / Toolbox</span>
-      <h2>What I build with</h2>
-    </div>
-    <div class="toolbox reveal">
-      <div class="tool-group">
-        <h4>Frontend</h4>
-        <ul><li>Next.js</li><li>React</li><li>JavaScript</li><li>Tailwind CSS</li><li>HTML / CSS</li></ul>
-      </div>
-      <div class="tool-group">
-        <h4>Backend &amp; Tools</h4>
-        <ul><li>Firebase (Firestore, Auth)</li><li>Node.js</li><li>Git</li><li>Vercel</li></ul>
-      </div>
-      <div class="tool-group">
-        <h4>Also On Hand</h4>
-        <ul><li>WordPress</li><li>Graphic Design</li></ul>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- ===== WORK ===== -->
+    <section id="work" style="background:var(--panel-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="tag">02 / Case Files</span>
+                <h2>Selected work</h2>
+            </div>
 
-<section style="background:var(--panel-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="tag">04 / Timeline</span>
-      <h2>How I got here</h2>
-    </div>
-    <div class="timeline reveal">
-      <div class="tl-item">
-        <div class="tl-year">2020 — 2023</div>
-        <h4>Kabafita Senior Secondary School</h4>
-        <p>WASSCE Certificate. Member of the Science Club.</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2024 — Present</div>
-        <h4>BSc in Information Systems, University of The Gambia</h4>
-        <p>Studying while building production software on the side.</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2024 — Present</div>
-        <h4>Freelance Junior Full Stack Developer</h4>
-        <p>Designing and shipping full systems for real clients, from first mockup to live deploy.</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2025</div>
-        <h4>Graphic Design Volunteer, PyCon Senegambia</h4>
-        <p>Supported event branding and promotion in Banjul.</p>
-      </div>
-    </div>
-  </div>
-</section>
+            <!-- Project 1 – Dental Clinic -->
+            <div class="project-card reveal">
+                <div class="project-media" id="carousel-1">
+                    <!-- Carousel injected by JS -->
+                </div>
+                <div class="project-info">
+                    <div class="ptag">Live &amp; Maintained</div>
+                    <h3>Shalach La El (Hope) Dental Clinic</h3>
+                    <p>A full clinic management system — public landing page plus a staff-only admin — built end to end for a private dental practice in The Gambia.</p>
+                    <ul class="featurelist">
+                        <li>Staff auth portal + admin dashboard with appointments, revenue, daily schedule</li>
+                        <li>Searchable patient records with medical history and file attachments</li>
+                        <li>Real-time appointment booking with slot availability</li>
+                        <li>Payment/revenue tracking and an expense tracker with filters</li>
+                        <li>Document generator for prescriptions, receipts, referrals, certificates</li>
+                    </ul>
+                    <div class="stackrow">
+                        <span class="chip">Next.js</span><span class="chip">React</span><span class="chip">Firebase</span><span class="chip">Tailwind</span><span class="chip">react-pdf</span><span class="chip">Vercel</span>
+                    </div>
+                    <a class="project-link" href="https://shalachdentalclinic.com" target="_blank" rel="noopener">Visit live site →</a>
+                </div>
+            </div>
 
-<footer id="contact">
-  <div class="contact-band">
-    <div class="wrap">
-      <h2>Let's build<br>something.</h2>
-      <p class="sub">If it needs a booking flow, a dashboard, a records system, or just a solid website — I'll build it, deploy it, and keep it running.</p>
-      <div class="contact-row">
-        <a class="contact-card" href="mailto:faalassan07@gmail.com"><span class="label">Email</span>faalassan07@gmail.com</a>
-        <a class="contact-card" href="tel:+2205911532"><span class="label">Phone / WhatsApp</span>+220 591 1532</a>
-        <a class="contact-card" href="https://shalachdentalclinic.com" target="_blank" rel="noopener"><span class="label">Live Project</span>shalachdentalclinic.com</a>
-      </div>
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="foot-bottom">
-      <span>Assan Faal — Brikama, West Coast Region, The Gambia</span>
-      <span>Placeholder media marked with dashed borders — swap in real screenshots/video anytime</span>
-    </div>
-  </div>
-</footer>
+            <!-- Project 2 – WordPress -->
+            <div class="project-card reveal">
+                <div class="project-info">
+                    <div class="ptag">Freelance</div>
+                    <h3>WordPress &amp; Client Sites</h3>
+                    <p>Custom WordPress websites and landing pages for small business clients — themes and plugins customized to each client's layout, branding, and functionality.</p>
+                    <div class="stackrow">
+                        <span class="chip">WordPress</span><span class="chip">Custom Themes</span><span class="chip">Plugins</span>
+                    </div>
+                </div>
+                <div class="project-media" id="carousel-2">
+                    <!-- Carousel injected by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  }, {threshold:0.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-</script>
+    <!-- ===== TOOLBOX ===== -->
+    <section id="toolbox">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="tag">03 / Toolbox</span>
+                <h2>What I build with</h2>
+            </div>
+            <div class="toolbox reveal">
+                <div class="tool-group">
+                    <h4>Frontend</h4>
+                    <ul><li>Next.js</li><li>React</li><li>JavaScript</li><li>Tailwind CSS</li><li>HTML / CSS</li></ul>
+                </div>
+                <div class="tool-group">
+                    <h4>Backend &amp; Tools</h4>
+                    <ul><li>Firebase (Firestore, Auth)</li><li>Node.js</li><li>Git</li><li>Vercel</li></ul>
+                </div>
+                <div class="tool-group">
+                    <h4>Also On Hand</h4>
+                    <ul><li>WordPress</li><li>Graphic Design</li></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TIMELINE ===== -->
+    <section style="background:var(--panel-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="tag">04 / Timeline</span>
+                <h2>How I got here</h2>
+            </div>
+            <div class="timeline reveal">
+                <div class="tl-item">
+                    <div class="tl-year">2020 — 2023</div>
+                    <h4>Kabafita Senior Secondary School</h4>
+                    <p>WASSCE Certificate. Member of the Science Club.</p>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">2024 — Present</div>
+                    <h4>BSc in Information Systems, University of The Gambia</h4>
+                    <p>Studying while building production software on the side.</p>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">2024 — Present</div>
+                    <h4>Freelance Junior Full Stack Developer</h4>
+                    <p>Designing and shipping full systems for real clients, from first mockup to live deploy.</p>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">2025</div>
+                    <h4>Graphic Design Volunteer, PyCon Senegambia</h4>
+                    <p>Supported event branding and promotion in Banjul.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <footer id="contact">
+        <div class="contact-band">
+            <div class="wrap">
+                <h2>Let's build<br />something.</h2>
+                <p class="sub">If it needs a booking flow, a dashboard, a records system, or just a solid website — I'll build it, deploy it, and keep it running.</p>
+                <div class="contact-row">
+                    <a class="contact-card" href="mailto:faalassan07@gmail.com"><span class="label">Email</span>faalassan07@gmail.com</a>
+                    <a class="contact-card" href="tel:+2205911532"><span class="label">Phone / WhatsApp</span>+220 591 1532</a>
+                    <a class="contact-card" href="https://shalachdentalclinic.com" target="_blank" rel="noopener"><span class="label">Live Project</span>shalachdentalclinic.com</a>
+                </div>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="foot-bottom">
+                <span>Assan Faal — Brikama, West Coast Region, The Gambia</span>
+                <span>Images and videos in the carousel are placeholders — swap with your own in the <code>images/</code> folder</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        //  CAROUSEL BUILDER
+        // ============================================================
+
+        /**
+         * Build a carousel inside a container element.
+         * @param {string|HTMLElement} container - selector or element
+         * @param {Array} items - array of { type: 'image'|'video', src, poster? }
+         * @param {Object} opts - { autoplay: boolean, interval: number }
+         */
+        function buildCarousel(container, items, opts) {
+            const el = typeof container === 'string' ? document.querySelector(container) : container;
+            if (!el) return;
+            const opt = Object.assign({ autoplay: true, interval: 4000 }, opts);
+
+            // ----- build DOM -----
+            const wrapper = document.createElement('div');
+            wrapper.className = 'carousel-container';
+
+            const track = document.createElement('div');
+            track.className = 'carousel-track';
+
+            // slides
+            items.forEach((item, idx) => {
+                const slide = document.createElement('div');
+                slide.className = 'carousel-slide';
+                slide.dataset.index = idx;
+
+                if (item.type === 'image') {
+                    const img = document.createElement('img');
+                    img.src = item.src;
+                    img.alt = item.alt || 'Project screenshot';
+                    img.loading = 'lazy';
+                    slide.appendChild(img);
+
+                    const label = document.createElement('span');
+                    label.className = 'slide-label';
+                    label.textContent = 'img' + (idx + 1);
+                    slide.appendChild(label);
+                } else if (item.type === 'video') {
+                    const video = document.createElement('video');
+                    video.src = item.src;
+                    video.poster = item.poster || '';
+                    video.muted = true;
+                    video.playsInline = true;
+                    video.preload = 'metadata';
+                    video.setAttribute('playsinline', '');
+                    slide.appendChild(video);
+
+                    // label
+                    const label = document.createElement('span');
+                    label.className = 'slide-label';
+                    label.textContent = 'vid' + (idx + 1);
+                    slide.appendChild(label);
+
+                    // play overlay (shown when video is paused)
+                    const overlay = document.createElement('div');
+                    overlay.className = 'video-play-overlay show';
+                    overlay.innerHTML =
+                        `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5,3 19,12 5,21" fill="rgba(255,78,31,0.85)" stroke="white"/></svg>`;
+                    overlay.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const v = slide.querySelector('video');
+                        if (v.paused) {
+                            v.play().catch(() => {});
+                        } else {
+                            v.pause();
+                        }
+                    });
+                    slide.appendChild(overlay);
+
+                    // bottom controls (simple play/pause + time)
+                    const controls = document.createElement('div');
+                    controls.className = 'video-controls-overlay';
+                    const playBtn = document.createElement('button');
+                    playBtn.innerHTML = '▶';
+                    playBtn.setAttribute('aria-label', 'Play/Pause');
+                    const timeSpan = document.createElement('span');
+                    timeSpan.className = 'time';
+                    timeSpan.textContent = '0:00';
+                    controls.appendChild(playBtn);
+                    controls.appendChild(timeSpan);
+
+                    playBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const v = slide.querySelector('video');
+                        if (v.paused) {
+                            v.play().catch(() => {});
+                        } else {
+                            v.pause();
+                        }
+                    });
+
+                    // update time & overlay on video events
+                    video.addEventListener('timeupdate', () => {
+                        const m = Math.floor(video.currentTime / 60);
+                        const s = Math.floor(video.currentTime % 60);
+                        timeSpan.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+                    });
+                    video.addEventListener('play', () => {
+                        overlay.classList.remove('show');
+                        playBtn.innerHTML = '⏸';
+                    });
+                    video.addEventListener('pause', () => {
+                        if (video.currentTime > 0 && !video.ended) {
+                            overlay.classList.add('show');
+                        }
+                        playBtn.innerHTML = '▶';
+                    });
+                    video.addEventListener('ended', () => {
+                        overlay.classList.add('show');
+                        playBtn.innerHTML = '▶';
+                        timeSpan.textContent = '0:00';
+                    });
+                    // click on video toggles play
+                    video.addEventListener('click', () => {
+                        if (video.paused) {
+                            video.play().catch(() => {});
+                        } else {
+                            video.pause();
+                        }
+                    });
+
+                    slide.appendChild(controls);
+
+                    // If video is already playing, hide overlay
+                    if (!video.paused) {
+                        overlay.classList.remove('show');
+                        playBtn.innerHTML = '⏸';
+                    }
+                }
+
+                track.appendChild(slide);
+            });
+
+            wrapper.appendChild(track);
+
+            // ----- buttons -----
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'carousel-btn prev';
+            prevBtn.innerHTML = '‹';
+            prevBtn.setAttribute('aria-label', 'Previous slide');
+            wrapper.appendChild(prevBtn);
+
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'carousel-btn next';
+            nextBtn.innerHTML = '›';
+            nextBtn.setAttribute('aria-label', 'Next slide');
+            wrapper.appendChild(nextBtn);
+
+            // ----- dots -----
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'carousel-dots';
+            items.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.dataset.index = i;
+                dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                dotsContainer.appendChild(dot);
+            });
+            wrapper.appendChild(dotsContainer);
+
+            // clear & append
+            el.innerHTML = '';
+            el.appendChild(wrapper);
+
+            // ----- state -----
+            let current = 0;
+            const total = items.length;
+            let autoplayTimer = null;
+            let isHovering = false;
+
+            const slides = track.querySelectorAll('.carousel-slide');
+            const dots = dotsContainer.querySelectorAll('.dot');
+
+            function goTo(index) {
+                if (index < 0) index = total - 1;
+                if (index >= total) index = 0;
+                current = index;
+
+                // pause all videos
+                slides.forEach((s, i) => {
+                    const v = s.querySelector('video');
+                    if (v) {
+                        if (i !== current) {
+                            v.pause();
+                            v.currentTime = 0;
+                        } else {
+                            // autoplay the current video if it's a video slide
+                            if (items[i].type === 'video') {
+                                v.play().catch(() => {});
+                            }
+                        }
+                    }
+                });
+
+                track.style.transform = 'translateX(-' + (current * 100) + '%)';
+
+                // update dots
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === current);
+                });
+
+                // update overlay for videos
+                slides.forEach((s, i) => {
+                    const v = s.querySelector('video');
+                    const overlay = s.querySelector('.video-play-overlay');
+                    if (v && overlay) {
+                        if (i === current && !v.paused) {
+                            overlay.classList.remove('show');
+                        } else if (i === current && v.paused) {
+                            overlay.classList.add('show');
+                        } else {
+                            overlay.classList.add('show');
+                        }
+                    }
+                });
+            }
+
+            function next() { goTo(current + 1); }
+
+            function prev() { goTo(current - 1); }
+
+            function startAutoplay() {
+                if (!opt.autoplay) return;
+                if (autoplayTimer) clearInterval(autoplayTimer);
+                autoplayTimer = setInterval(() => {
+                    if (!isHovering) {
+                        // if current slide is a video and it's playing, don't auto-advance
+                        const slide = slides[current];
+                        const v = slide.querySelector('video');
+                        if (v && !v.paused) {
+                            // wait until video ends or is paused
+                            return;
+                        }
+                        next();
+                    }
+                }, opt.interval);
+            }
+
+            function stopAutoplay() {
+                if (autoplayTimer) {
+                    clearInterval(autoplayTimer);
+                    autoplayTimer = null;
+                }
+            }
+
+            // ----- events -----
+            prevBtn.addEventListener('click', () => { prev();
+                resetAutoplay(); });
+            nextBtn.addEventListener('click', () => { next();
+                resetAutoplay(); });
+
+            dots.forEach((dot) => {
+                dot.addEventListener('click', () => {
+                    const idx = parseInt(dot.dataset.index);
+                    goTo(idx);
+                    resetAutoplay();
+                });
+            });
+
+            // keyboard
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') { prev();
+                    resetAutoplay();
+                    e.preventDefault(); }
+                if (e.key === 'ArrowRight') { next();
+                    resetAutoplay();
+                    e.preventDefault(); }
+            });
+
+            // hover pause
+            el.addEventListener('mouseenter', () => { isHovering = true; });
+            el.addEventListener('mouseleave', () => { isHovering = false; });
+
+            // touch swipe
+            let startX = 0;
+            let isDragging = false;
+            el.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            }, { passive: true });
+            el.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                const endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+                if (Math.abs(diff) > 40) {
+                    if (diff > 0) { next();
+                        resetAutoplay(); } else { prev();
+                        resetAutoplay(); }
+                }
+                isDragging = false;
+            }, { passive: true });
+
+            function resetAutoplay() {
+                stopAutoplay();
+                startAutoplay();
+            }
+
+            // ----- init -----
+            goTo(0);
+            startAutoplay();
+
+            // if the carousel is hidden (e.g. in a collapsed section), recalc on reveal
+            const observer = new ResizeObserver(() => {
+                // just ensure the track is positioned correctly
+                track.style.transform = 'translateX(-' + (current * 100) + '%)';
+            });
+            observer.observe(el);
+
+            // expose controls
+            return { goTo, next, prev, destroy: () => { stopAutoplay();
+                    observer.disconnect(); } };
+        }
+
+        // ============================================================
+        //  MEDIA ITEMS – 5 images + 3 videos
+        //  Files go in the "images/" folder.
+        //  For images: img1.jpg, img2.jpg, img3.jpg, img4.jpg, img5.jpg
+        //  For videos: vid1.mp4, vid2.mp4, vid3.mp4
+        // ============================================================
+
+        // Use placeholder images from picsum so the carousel works out of the box.
+        // The user can replace these with their own files in the images/ folder.
+        const imageItems = [
+            { type: 'image', src: 'https://picsum.photos/id/1/800/500', alt: 'Dashboard overview' },
+            { type: 'image', src: 'https://picsum.photos/id/10/800/500', alt: 'Patient records' },
+            { type: 'image', src: 'https://picsum.photos/id/100/800/500', alt: 'Appointment booking' },
+            { type: 'image', src: 'https://picsum.photos/id/1000/800/500', alt: 'Revenue tracking' },
+            { type: 'image', src: 'https://picsum.photos/id/1001/800/500', alt: 'Document generation' },
+        ];
+
+        // For videos we use a sample clip. The user can replace with images/vid1.mp4 etc.
+        const videoItems = [
+            { type: 'video', src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+            poster: 'https://picsum.photos/id/1015/800/500' },
+            { type: 'video', src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+            poster: 'https://picsum.photos/id/1018/800/500' },
+            { type: 'video', src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+            poster: 'https://picsum.photos/id/1020/800/500' },
+        ];
+
+        // Combine: 5 images then 3 videos = 8 slides
+        const carouselItems = [...imageItems, ...videoItems];
+
+        // ============================================================
+        //  BUILD BOTH CAROUSELS
+        // ============================================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Carousel 1 – Dental Clinic
+            const c1 = document.getElementById('carousel-1');
+            if (c1) {
+                buildCarousel(c1, carouselItems, { autoplay: true, interval: 4500 });
+            }
+
+            // Carousel 2 – WordPress (use same items, or a subset)
+            const c2 = document.getElementById('carousel-2');
+            if (c2) {
+                // Use a slightly different set for variety, but still 8 items
+                // We'll reuse the same items but shuffle the order a bit
+                const shuffled = [
+                    carouselItems[3], carouselItems[0], carouselItems[5],
+                    carouselItems[1], carouselItems[6], carouselItems[2],
+                    carouselItems[4], carouselItems[7]
+                ];
+                buildCarousel(c2, shuffled, { autoplay: true, interval: 4000 });
+            }
+
+            // ---- reveal observer ----
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('in');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+        });
+    </script>
 
 </body>
 </html>
